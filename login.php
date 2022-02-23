@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(E_ERROR | E_PARSE);
 // include filss
 include 'functions.php';
 include 'components/__header.php';

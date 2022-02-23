@@ -1,10 +1,12 @@
 <?php
 
+// echo $user_id;
+
 function template_header($title, $path = "../")
 {
-    echo <<<EOT
+    $user_id = $_SESSION['user_session'];
 
-EOT;
+    $user = new USER;
     print('
 <!DOCTYPE html>
 <html>
@@ -19,13 +21,17 @@ EOT;
 
         </head>
 	<body>
-
     <nav class="navtop">
     	<div>
     		<h1><b style="font-size:xx-large;">BELAVIE</b></h1>
-            <a href="' . $path . 'index.php"><i class="fas fa-home"></i>Home</a>
-    		<a href="' . $path . 'article/read.php"><i class="fas fa-address-book"></i>Articles</a>
-    	</div>
-    </nav>
-');
+
+
+
+        <a href="' . $path . 'index.php"><i class="fas fa-address-book"></i>Articles</a>
+				<a href="' . $path . 'piscine/index_p.php"><i class="fas fa-arrow-circle-down"></i>Piscine</a>
+				');
+
+    print('</div>
+    </nav>');
+
 }

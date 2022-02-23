@@ -54,6 +54,36 @@ class USER
 
         }
     }
+    public function register_sup($uname, $umail, $upass)
+    {
+        try {
+            $super = 1;
+            $new_password = password_hash($upass, PASSWORD_DEFAULT);
+            $stmt = $this->conn->prepare("INSERT INTO users(user_name,Super_admin,user_email,user_pass) VALUES(:uname,:sup, :umail, :upass)");
+            $stmt->bindparam(":uname", $uname);
+            $stmt->bindparam(":sup", $super);
+            $stmt->bindparam(":umail", $umail);
+            $stmt->bindparam(":upass", $new_password);
+            $stmt->execute();
+            return $stmt;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+
+        }
+    }
+
+    public function isSuper($e)
+    {
+        $query = $this->conn->prepare('SELECT Super_admin FROM users WHERE user_id=:user_id');
+        $query->execute([":user_id" => $e]);
+        $super = $query->fetch(PDO::FETCH_ASSOC);
+
+        foreach ($super as $key) {
+            if ($key) {
+                return true;
+            }
+        }
+    }
 
     public function doLogin($uname, $umail, $upass)
     {
